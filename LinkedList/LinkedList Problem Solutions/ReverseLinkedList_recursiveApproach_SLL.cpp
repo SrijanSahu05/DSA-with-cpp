@@ -1,4 +1,4 @@
-/*Recursive approach or reversing the linked list.*/
+/*Recursive approach for reversing the linked list.*/
 
 #include<iostream>
 using namespace std;
