@@ -1,0 +1,74 @@
+#include<iostream>
+using namespace std;
+
+void merge(int arr[], int s, int e){
+    int mid = s + (e-s)/2;
+
+    int len1 = mid - s + 1;
+    int len2 = e - mid;
+
+    int *first = new int[len1];
+    int *second = new int[len2];
+
+    //copy values
+    int k = s;
+    for(int i=0; i<len1; i++){
+        first[i] = arr[k++];
+    }
+
+    k = mid+1;
+    for(int i=0; i<len2; i++){
+        second[i] = arr[k++];
+    }
+
+    //merge 2 sorted arrays
+    k = s;
+    int idx1 = 0;
+    int idx2 = 0;
+
+    while(idx1 < len1 && idx2 < len2){
+        if(first[idx1] < second[idx2]){
+            arr[k++] = first[idx1++];
+        }
+        else{
+            arr[k++] = second[idx2++];
+        }
+    }
+
+    while(idx1 < len1){
+        arr[k++] = first[idx1++];
+    }
+
+    while(idx2 < len2){
+        arr[k++] = second[idx2++];
+    }
+}
+
+void mergeSort(int arr[], int s, int e, int size){
+    //base case
+    if(s >= e) return;
+
+    int mid = s + (e-s)/2;
+
+    //left part sort
+    mergeSort(arr, s, mid, size);
+
+    //right part sort
+    mergeSort(arr, mid+1, e, size);
+
+    //merge
+    merge(arr, s, e);
+}
+
+int main(){
+    int n = 10;
+    int arr[10] = {2,9,1,4,0,100,87,54,98,32};
+    
+    mergeSort(arr, 0, n-1, n);
+
+    for(int i=0; i<n; i++){
+        cout<<arr[i]<<" ";
+    }
+
+    return 0;
+}
